@@ -1,18 +1,13 @@
-import { dirname, resolve } from 'path'
-// eslint-disable-next-line node/no-deprecated-api
-import { fileURLToPath, parse } from 'url'
+/* eslint-disable node/no-deprecated-api */
 import { pipeline } from 'stream/promises'
-import FileHelper from './file-helper.js'
-import UploadHandler from './upload-handler.js'
-import { logger } from './logger.js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const defaultDownloadsFolder = resolve(__dirname, '../', 'downloads')
+import { parse } from 'url'
+import { logger } from '../common/logger.js'
+import S3FileHelper from './file-helper.js'
+import S3UploadHandler from './upload-handler.js'
 
 export default class Routes {
-  constructor (downloadsFolder = defaultDownloadsFolder) {
-    this.downloadsFolder = downloadsFolder
-    this.fileHelper = FileHelper
+  constructor () {
+    this.fileHelper = S3FileHelper
   }
 
   setSocketInstance (io) {
@@ -31,7 +26,7 @@ export default class Routes {
   async post (request, response) {
     const { headers } = request
     const { query: { socketId } } = parse(request.url, true)
-    const uploadHandler = new UploadHandler({
+    const uploadHandler = new S3UploadHandler({
       socketId,
       io: this.io,
       downloadsFolder: this.downloadsFolder
@@ -51,7 +46,7 @@ export default class Routes {
   }
 
   async get (request, response) {
-    const files = await this.fileHelper.getFilesStatus(this.downloadsFolder)
+    const files = await this.fileHelper.getFilesStatus('semanajsexpert5')
 
     response.writeHead(200)
     response.end(JSON.stringify(files))

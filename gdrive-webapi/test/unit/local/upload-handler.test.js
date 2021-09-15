@@ -8,9 +8,9 @@ import {
 import fs from 'fs'
 import { resolve } from 'path'
 import { pipeline } from 'stream/promises'
-import { logger } from '../../src/logger'
-import UploadHandler from '../../src/upload-handler'
-import TestUtil from '../_util/test-util'
+import { logger } from '../../../src/common/logger.js'
+import UploadHandler from '../../../src/local/upload-handler.js'
+import TestUtil from '../../_util/test-util.js'
 
 describe('UploadHandler', () => {
   const ioObj = {

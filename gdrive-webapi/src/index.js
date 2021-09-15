@@ -1,8 +1,8 @@
-import https from 'https'
 import fs from 'fs'
+import https from 'https'
 import { Server } from 'socket.io'
-import { logger } from './logger.js'
-import Routes from './routes.js'
+import { logger } from './common/logger.js'
+import Routes from './s3/routes.js'
 
 const PORT = process.env.PORT || 3000
 

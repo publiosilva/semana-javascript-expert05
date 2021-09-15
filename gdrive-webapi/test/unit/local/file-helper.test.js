@@ -6,7 +6,7 @@ import {
   jest
 } from '@jest/globals'
 import fs from 'fs'
-import FileHelper from './../../src/file-helper.js'
+import FileHelper from '../../../src/local/file-helper.js'
 
 describe('FileHelper', () => {
   describe('getFileStatus', () => {

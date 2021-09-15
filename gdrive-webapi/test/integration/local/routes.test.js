@@ -1,19 +1,14 @@
 import {
-  describe,
-  test,
-  expect,
-  jest,
-  beforeEach,
-  beforeAll,
-  afterAll
+  afterAll, beforeAll, beforeEach, describe, expect,
+  jest, test
 } from '@jest/globals'
-import fs from 'fs'
-import TestUtil from '../_util/test-util'
 import FormData from 'form-data'
-import { logger } from '../../src/logger'
-import Routes from '../../src/routes'
+import fs from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
+import { logger } from '../../../src/common/logger.js'
+import Routes from '../../../src/local/routes.js'
+import TestUtil from '../../_util/test-util.js'
 
 describe('Routes integration teste', () => {
   let defaultDownloadsFolder = ''
@@ -33,13 +28,13 @@ describe('Routes integration teste', () => {
   describe('getFileStatus', () => {
     const ioObj = {
       to: (id) => ioObj,
-      emit: (event, message) => {}
+      emit: (event, message) => { }
     }
 
     test('should upload file to the folder', async () => {
       const filename = 'moon-rover.png'
       const fileStream = fs.createReadStream(`./test/integration/mocks/${filename}`)
-      const response = TestUtil.generateWritableStream(() => {})
+      const response = TestUtil.generateWritableStream(() => { })
       const form = new FormData()
       form.append('photo', fileStream)
       const defaultParams = {

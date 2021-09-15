@@ -1,18 +1,15 @@
 import {
-  describe,
-  test,
-  expect,
-  jest,
-  beforeEach
+  beforeEach, describe, expect,
+  jest, test
 } from '@jest/globals'
-import { logger } from '../../src/logger.js'
-import UploadHandler from '../../src/upload-handler.js'
-import TestUtil from '../_util/test-util.js'
-import Routes from './../../src/routes.js'
+import { logger } from '../../../src/common/logger.js'
+import Routes from '../../../src/local/routes.js'
+import UploadHandler from '../../../src/local/upload-handler.js'
+import TestUtil from '../../_util/test-util.js'
 
 describe('Routes', () => {
   const request = TestUtil.generateReadableStream(['some file bytes'])
-  const response = TestUtil.generateWritableStream(() => {})
+  const response = TestUtil.generateWritableStream(() => { })
   const defaultParams = {
     request: Object.assign(request, {
       headers: {
@@ -38,7 +35,7 @@ describe('Routes', () => {
       const routes = new Routes()
       const ioObj = {
         to: (id) => ioObj,
-        emit: (event, message) => {}
+        emit: (event, message) => { }
       }
 
       routes.setSocketInstance(ioObj)
@@ -144,7 +141,7 @@ describe('Routes', () => {
       options.request.url = '?socketId=any_socket_id'
 
       jest.spyOn(UploadHandler.prototype, UploadHandler.prototype.registerEvents.name).mockImplementation((headers, onFinish) => {
-        const writable = TestUtil.generateWritableStream(() => {})
+        const writable = TestUtil.generateWritableStream(() => { })
         writable.on('finish', onFinish)
 
         return writable
